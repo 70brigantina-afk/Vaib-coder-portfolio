@@ -18,7 +18,8 @@
     '.case-card',
     '.roadmap-step',
     '.proof-stat',
-    '.testimonial',
+    '.testimonial-card',
+    '.testimonial-shuffle',
     '.hero-pills span'
   ].join(',');
 

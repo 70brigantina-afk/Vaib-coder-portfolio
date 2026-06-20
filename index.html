@@ -473,19 +473,33 @@
           </div>
         </div>
 
-        <div class="testimonial-grid">
-          <blockquote class="testimonial reveal">
-            <p>Ирина помогла увидеть проект со стороны клиента. После структуры стало понятно, что именно нужно показать на сайте.</p>
-            <cite>Эксперт в сфере стиля</cite>
-          </blockquote>
-          <blockquote class="testimonial reveal delay-1">
-            <p>Понравилось, что работа шла не с шаблона, а от задачи. Получился аккуратный, современный и понятный результат.</p>
-            <cite>Автор digital-продукта</cite>
-          </blockquote>
-          <blockquote class="testimonial reveal delay-2">
-            <p>AI использовался как помощник, но все решения оставались осознанными. Это чувствуется в финальном проекте.</p>
-            <cite>Клиент AI-проекта</cite>
-          </blockquote>
+        <div class="testimonial-showcase reveal" aria-label="Отзывы клиентов">
+          <div class="testimonial-copy">
+            <p class="eyebrow">Отзывы</p>
+            <h2>Клиенты отмечают спокойный процесс, ясную структуру и результат, который не выглядит шаблонно.</h2>
+            <p>
+              Перетяните верхнюю карточку влево или нажмите кнопку, чтобы посмотреть следующий отзыв.
+            </p>
+            <button class="testimonial-shuffle btn btn-secondary" type="button">Следующий отзыв</button>
+          </div>
+
+          <div class="testimonial-stack" aria-live="polite">
+            <article class="testimonial-card is-front" data-position="front">
+              <div class="testimonial-avatar">АВ</div>
+              <p>Ирина помогла увидеть проект со стороны клиента. После структуры стало понятно, что именно нужно показать на сайте.</p>
+              <cite>Ангелина Власова, стилист</cite>
+            </article>
+            <article class="testimonial-card is-middle" data-position="middle">
+              <div class="testimonial-avatar">DP</div>
+              <p>Понравилось, что работа шла не с шаблона, а от задачи. Получился аккуратный, современный и понятный результат.</p>
+              <cite>Автор digital-продукта</cite>
+            </article>
+            <article class="testimonial-card is-back" data-position="back">
+              <div class="testimonial-avatar">AI</div>
+              <p>AI использовался как помощник, но все решения оставались осознанными. Это чувствуется в финальном проекте.</p>
+              <cite>Клиент AI-проекта</cite>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -620,6 +634,71 @@
     } else if (typeCursor) {
       typeCursor.style.display = 'none';
     }
+
+    const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
+    const testimonialShuffle = document.querySelector('.testimonial-shuffle');
+    const testimonialPositions = ['front', 'middle', 'back'];
+
+    const applyTestimonialPositions = () => {
+      testimonialCards.forEach((card, index) => {
+        const position = testimonialPositions[index];
+        card.dataset.position = position;
+        card.classList.toggle('is-front', position === 'front');
+        card.classList.toggle('is-middle', position === 'middle');
+        card.classList.toggle('is-back', position === 'back');
+      });
+    };
+
+    const shuffleTestimonials = () => {
+      testimonialPositions.unshift(testimonialPositions.pop());
+      applyTestimonialPositions();
+    };
+
+    testimonialShuffle?.addEventListener('click', shuffleTestimonials);
+
+    testimonialCards.forEach((card) => {
+      let dragStartX = 0;
+      let dragCurrentX = 0;
+      let isDragging = false;
+
+      const finishDrag = () => {
+        if (!isDragging) return;
+
+        const deltaX = dragCurrentX - dragStartX;
+        card.classList.remove('is-dragging');
+        card.style.transform = '';
+
+        if (deltaX < -130 && card.dataset.position === 'front') {
+          shuffleTestimonials();
+        }
+
+        isDragging = false;
+        dragStartX = 0;
+        dragCurrentX = 0;
+      };
+
+      card.addEventListener('pointerdown', (event) => {
+        if (card.dataset.position !== 'front') return;
+
+        isDragging = true;
+        dragStartX = event.clientX;
+        dragCurrentX = event.clientX;
+        card.classList.add('is-dragging');
+        card.setPointerCapture(event.pointerId);
+      });
+
+      card.addEventListener('pointermove', (event) => {
+        if (!isDragging) return;
+
+        dragCurrentX = event.clientX;
+        const deltaX = dragCurrentX - dragStartX;
+        const rotate = -6 + deltaX / 30;
+        card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
+      });
+
+      card.addEventListener('pointerup', finishDrag);
+      card.addEventListener('pointercancel', finishDrag);
+    });
 
     const toggle = document.querySelector('.nav-toggle');
     const menu = document.querySelector('.nav-menu');
