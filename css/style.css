@@ -1898,6 +1898,7 @@ ul {
   min-height: 460px;
   width: min(100%, 620px);
   margin-inline: auto;
+  isolation: isolate;
 }
 
 .testimonial-card {
@@ -1915,7 +1916,7 @@ ul {
   color: var(--text);
   background:
     radial-gradient(circle at 24% 12%, rgba(255, 240, 206, 0.18), transparent 13rem),
-    linear-gradient(145deg, rgba(255, 247, 229, 0.13), rgba(255, 247, 229, 0.045));
+    linear-gradient(145deg, rgba(34, 24, 15, 0.98), rgba(12, 9, 7, 0.96));
   box-shadow: 0 26px 90px rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(22px);
   user-select: none;
@@ -1941,20 +1942,23 @@ ul {
 
 .testimonial-card.is-front {
   z-index: 3;
+  opacity: 1;
   transform: translateX(0) rotate(-6deg);
+  border-color: rgba(240, 184, 93, 0.34);
+  box-shadow: 0 34px 110px rgba(0, 0, 0, 0.46);
   cursor: grab;
 }
 
 .testimonial-card.is-middle {
   z-index: 2;
-  opacity: 0.76;
-  transform: translateX(33%) rotate(0deg);
+  opacity: 1;
+  transform: translateX(30%) rotate(0deg) scale(0.96);
 }
 
 .testimonial-card.is-back {
   z-index: 1;
-  opacity: 0.5;
-  transform: translateX(66%) rotate(6deg);
+  opacity: 1;
+  transform: translateX(58%) rotate(6deg) scale(0.92);
 }
 
 .testimonial-card.is-dragging {
@@ -1964,22 +1968,33 @@ ul {
   box-shadow: 0 34px 110px rgba(0, 0, 0, 0.48);
 }
 
+.testimonial-card.is-skipping {
+  opacity: 0;
+  transform: translateX(-115%) rotate(-16deg) scale(0.92);
+  pointer-events: none;
+}
+
+.testimonial-card:not(.is-front) p,
+.testimonial-card:not(.is-front) cite {
+  opacity: 0;
+}
+
+.testimonial-card:not(.is-front) .testimonial-avatar {
+  opacity: 0.42;
+}
+
 .testimonial-avatar {
   width: 82px;
   height: 82px;
-  display: grid;
-  place-items: center;
+  display: block;
   margin-inline: auto;
   border: 1px solid rgba(255, 236, 190, 0.24);
   border-radius: 50%;
-  color: #170c04;
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  background:
-    linear-gradient(135deg, rgba(255, 240, 206, 0.96), rgba(240, 184, 93, 0.84)),
-    var(--gold);
+  background: #170c04;
   box-shadow: 0 18px 48px rgba(240, 184, 93, 0.22);
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.04) sepia(0.08);
 }
 
 .testimonial-card p {
@@ -1988,6 +2003,7 @@ ul {
   font-style: italic;
   line-height: 1.55;
   text-align: center;
+  transition: opacity 180ms ease;
 }
 
 .testimonial-card cite {
@@ -1995,6 +2011,7 @@ ul {
   font-style: normal;
   font-weight: 800;
   text-align: center;
+  transition: opacity 180ms ease;
 }
 
 .contact-section {

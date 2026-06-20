@@ -485,17 +485,17 @@
 
           <div class="testimonial-stack" aria-live="polite">
             <article class="testimonial-card is-front" data-position="front">
-              <div class="testimonial-avatar">АВ</div>
+              <img class="testimonial-avatar" src="стилист.png" alt="Ангелина Власова">
               <p>Ирина помогла увидеть проект со стороны клиента. После структуры стало понятно, что именно нужно показать на сайте.</p>
               <cite>Ангелина Власова, стилист</cite>
             </article>
             <article class="testimonial-card is-middle" data-position="middle">
-              <div class="testimonial-avatar">DP</div>
+              <img class="testimonial-avatar" src="testimonial-digital-author.png" alt="Автор digital-продукта">
               <p>Понравилось, что работа шла не с шаблона, а от задачи. Получился аккуратный, современный и понятный результат.</p>
               <cite>Автор digital-продукта</cite>
             </article>
             <article class="testimonial-card is-back" data-position="back">
-              <div class="testimonial-avatar">AI</div>
+              <img class="testimonial-avatar" src="testimonial-ai-client.png" alt="Клиент AI-проекта">
               <p>AI использовался как помощник, но все решения оставались осознанными. Это чувствуется в финальном проекте.</p>
               <cite>Клиент AI-проекта</cite>
             </article>
@@ -638,6 +638,7 @@
     const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
     const testimonialShuffle = document.querySelector('.testimonial-shuffle');
     const testimonialPositions = ['front', 'middle', 'back'];
+    let isTestimonialAnimating = false;
 
     const applyTestimonialPositions = () => {
       testimonialCards.forEach((card, index) => {
@@ -649,9 +650,29 @@
       });
     };
 
-    const shuffleTestimonials = () => {
+    const rotateTestimonials = () => {
       testimonialPositions.unshift(testimonialPositions.pop());
       applyTestimonialPositions();
+    };
+
+    const shuffleTestimonials = () => {
+      if (isTestimonialAnimating) return;
+
+      const frontCard = testimonialCards.find((card) => card.dataset.position === 'front');
+
+      if (!frontCard || prefersReducedMotion) {
+        rotateTestimonials();
+        return;
+      }
+
+      isTestimonialAnimating = true;
+      frontCard.classList.add('is-skipping');
+
+      window.setTimeout(() => {
+        frontCard.classList.remove('is-skipping');
+        rotateTestimonials();
+        isTestimonialAnimating = false;
+      }, 320);
     };
 
     testimonialShuffle?.addEventListener('click', shuffleTestimonials);
@@ -665,11 +686,13 @@
         if (!isDragging) return;
 
         const deltaX = dragCurrentX - dragStartX;
-        card.classList.remove('is-dragging');
-        card.style.transform = '';
-
         if (deltaX < -130 && card.dataset.position === 'front') {
+          card.style.transform = '';
+          card.classList.remove('is-dragging');
           shuffleTestimonials();
+        } else {
+          card.classList.remove('is-dragging');
+          card.style.transform = '';
         }
 
         isDragging = false;
