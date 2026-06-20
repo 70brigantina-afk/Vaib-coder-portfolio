@@ -1435,10 +1435,10 @@ ul {
 .case-card {
   position: relative;
   display: grid;
-  grid-template-columns: 0.96fr 1.04fr;
-  gap: 34px;
-  align-items: stretch;
-  padding: 18px;
+  grid-template-columns: minmax(330px, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+  padding: clamp(16px, 2vw, 22px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
@@ -1475,7 +1475,7 @@ ul {
 
 .case-visual {
   position: relative;
-  min-height: 420px;
+  min-height: clamp(560px, 68vw, 720px);
   display: grid;
   place-items: center;
   border-radius: 34px;
@@ -1493,6 +1493,72 @@ ul {
   mask-image: radial-gradient(circle at center, black, transparent 74%);
   opacity: 0.5;
   transition: 700ms ease;
+}
+
+.case-image-frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 430px);
+  height: clamp(520px, 64vw, 680px);
+  padding: 10px;
+  border: 1px solid rgba(255, 236, 190, 0.2);
+  border-radius: 34px;
+  background:
+    linear-gradient(145deg, rgba(255, 247, 229, 0.2), rgba(255, 247, 229, 0.055)),
+    rgba(10, 8, 6, 0.24);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.38),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.045);
+  overflow: hidden;
+  transform: rotate(-2deg);
+  transition: 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-card.reverse .case-image-frame {
+  transform: rotate(2deg);
+}
+
+.case-card:hover .case-image-frame {
+  transform: translateY(-8px) rotate(0deg) scale(1.015);
+  border-color: rgba(240, 184, 93, 0.38);
+}
+
+.case-image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 25px;
+  background:
+    linear-gradient(180deg, rgba(7, 6, 4, 0) 58%, rgba(7, 6, 4, 0.38) 100%),
+    radial-gradient(circle at 18% 8%, rgba(255, 240, 206, 0.12), transparent 14rem);
+  pointer-events: none;
+}
+
+.case-image-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 24px;
+  object-fit: cover;
+  object-position: top center;
+  filter: saturate(0.93) contrast(1.02) sepia(0.06);
+}
+
+.case-image-frame span {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 2;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 236, 190, 0.2);
+  border-radius: 999px;
+  color: var(--cream);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: rgba(10, 8, 6, 0.58);
+  backdrop-filter: blur(14px);
 }
 
 .stylist-site {
@@ -2226,9 +2292,23 @@ ul {
   .hero-grid,
   .split-grid,
   .ai-grid,
+  .case-card,
+  .case-card.reverse,
   .story-card,
   .contact-card {
     grid-template-columns: 1fr;
+  }
+
+  .case-card.reverse .case-visual {
+    order: initial;
+  }
+
+  .case-visual {
+    min-height: 680px;
+  }
+
+  .case-image-frame {
+    height: 640px;
   }
 
   .hero-visual {
@@ -2367,7 +2447,17 @@ ul {
   }
 
   .case-visual {
-    min-height: 340px;
+    min-height: 620px;
+  }
+
+  .case-image-frame {
+    width: min(100%, 390px);
+    height: 580px;
+    transform: none;
+  }
+
+  .case-card.reverse .case-image-frame {
+    transform: none;
   }
 
   .wide-card-code {
@@ -2451,6 +2541,32 @@ ul {
 
   .hero-photo-frame img {
     object-position: 50% 34%;
+  }
+
+  .case-card {
+    padding: 12px;
+    border-radius: 32px;
+  }
+
+  .case-visual {
+    min-height: 520px;
+    border-radius: 24px;
+  }
+
+  .case-image-frame {
+    width: 100%;
+    height: 500px;
+    padding: 8px;
+    border-radius: 24px;
+  }
+
+  .case-image-frame img {
+    border-radius: 18px;
+  }
+
+  .case-image-frame::after {
+    inset: 8px;
+    border-radius: 18px;
   }
 
   .photo-caption {
