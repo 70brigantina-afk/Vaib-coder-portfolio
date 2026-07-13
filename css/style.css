@@ -1869,10 +1869,11 @@ ul {
 
 .case-actions .btn {
   min-height: 50px;
-  padding: 0 20px;
-  font-size: 14px;
+  width: auto;
   max-width: 100%;
+  padding: 0 20px;
   box-sizing: border-box;
+  font-size: 14px;
   text-align: center;
   white-space: normal;
 }
@@ -2645,15 +2646,23 @@ button.contact-link {
   }
 
   .hero-actions,
-  .case-actions,
   .contact-buttons {
     flex-direction: column;
   }
 
   .btn,
-  .case-actions .btn,
   .contact-link {
     width: 100%;
+  }
+
+  .case-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .case-actions .btn {
+    width: auto;
+    max-width: 100%;
   }
 
   .hero-visual {
