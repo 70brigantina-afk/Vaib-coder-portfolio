@@ -1878,6 +1878,14 @@ ul {
   white-space: normal;
 }
 
+.case-download-note {
+  width: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .ai-grid {
   display: grid;
   grid-template-columns: 1fr 0.9fr;
