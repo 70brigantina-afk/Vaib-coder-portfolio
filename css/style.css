@@ -2243,6 +2243,7 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   min-height: 50px;
   padding: 0 18px;
   border: 1px solid var(--line);
@@ -2254,6 +2255,21 @@ ul {
   background: rgba(255, 250, 241, 0.06);
   cursor: pointer;
   transition: var(--transition);
+  white-space: normal;
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.contact-link-max {
+  gap: 8px;
+}
+
+.contact-max-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 button.contact-link {
