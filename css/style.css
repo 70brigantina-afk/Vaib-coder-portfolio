@@ -1871,6 +1871,10 @@ ul {
   min-height: 50px;
   padding: 0 20px;
   font-size: 14px;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: normal;
 }
 
 .ai-grid {
@@ -2235,9 +2239,17 @@ ul {
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--cream);
+  font: inherit;
   font-weight: 800;
+  line-height: inherit;
   background: rgba(255, 250, 241, 0.06);
+  cursor: pointer;
   transition: var(--transition);
+}
+
+button.contact-link {
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .contact-link:hover {

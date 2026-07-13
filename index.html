@@ -313,8 +313,8 @@
                 </div>
               </dl>
               <div class="case-actions">
-                <button class="btn btn-primary case-btn-pending" type="button" disabled aria-label="Открыть проект">Скоро добавлю ссылку</button>
-                <button class="btn btn-secondary case-btn-pending" type="button" disabled aria-label="Подробнее">Скоро добавлю ссылку</button>
+                <a class="btn btn-primary" href="https://70brigantina-afk.github.io/Angelina-Vlasova/" target="_blank" rel="noopener noreferrer">Открыть проект</a>
+                <a class="btn btn-secondary" href="https://github.com/70brigantina-afk/Angelina-Vlasova" target="_blank" rel="noopener noreferrer">Код на GitHub</a>
               </div>
             </div>
           </article>
@@ -347,8 +347,7 @@
                 </div>
               </dl>
               <div class="case-actions">
-                <button class="btn btn-primary case-btn-pending" type="button" disabled aria-label="Открыть проект">Скоро добавлю ссылку</button>
-                <button class="btn btn-secondary case-btn-pending" type="button" disabled aria-label="Подробнее">Скоро добавлю ссылку</button>
+                <a class="btn btn-primary" href="https://ai.iamcore.ru" target="_blank" rel="noopener noreferrer">Открыть проект</a>
               </div>
             </div>
           </article>
@@ -381,8 +380,7 @@
                 </div>
               </dl>
               <div class="case-actions">
-                <button class="btn btn-primary case-btn-pending" type="button" disabled aria-label="Открыть проект">Скоро добавлю ссылку</button>
-                <button class="btn btn-secondary case-btn-pending" type="button" disabled aria-label="Подробнее">Скоро добавлю ссылку</button>
+                <a class="btn btn-primary" href="https://github.com/70brigantina-afk/prilogenie" target="_blank" rel="noopener noreferrer">Посмотреть проект на GitHub</a>
               </div>
             </div>
           </article>
@@ -415,8 +413,8 @@
                 </div>
               </dl>
               <div class="case-actions">
-                <button class="btn btn-primary case-btn-pending" type="button" disabled aria-label="Открыть проект">Скоро добавлю ссылку</button>
-                <button class="btn btn-secondary case-btn-pending" type="button" disabled aria-label="Подробнее">Скоро добавлю ссылку</button>
+                <a class="btn btn-primary" href="https://70brigantina-afk.github.io/Transformation-Journal/" target="_blank" rel="noopener noreferrer">Открыть проект</a>
+                <a class="btn btn-secondary" href="https://github.com/70brigantina-afk/Transformation-Journal" target="_blank" rel="noopener noreferrer">Код на GitHub</a>
               </div>
             </div>
           </article>
@@ -449,8 +447,8 @@
                 </div>
               </dl>
               <div class="case-actions">
-                <button class="btn btn-primary case-btn-pending" type="button" disabled aria-label="Открыть проект">Скоро добавлю ссылку</button>
-                <button class="btn btn-secondary case-btn-pending" type="button" disabled aria-label="Подробнее">Скоро добавлю ссылку</button>
+                <a class="btn btn-primary" href="https://quiz.marinadugina.ru/" target="_blank" rel="noopener noreferrer">Открыть проект</a>
+                <a class="btn btn-secondary" href="https://github.com/70brigantina-afk/marina-inner-compass-main" target="_blank" rel="noopener noreferrer">Код на GitHub</a>
               </div>
             </div>
           </article>
@@ -548,7 +546,7 @@
           <div class="contact-buttons">
             <a class="contact-link" href="https://t.me/arina_22221" target="_blank" rel="noopener noreferrer">Telegram</a>
             <a class="contact-link" href="https://wa.me/79034174679" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a class="contact-link" href="mailto:70brigantina@gmail.com">Email</a>
+            <button class="contact-link" type="button" id="copy-email-btn" aria-label="Скопировать email">Email</button>
             <a class="contact-link contact-link-muted" href="tel:+79034174679">Позвонить</a>
           </div>
         </div>
@@ -723,6 +721,52 @@
       field.addEventListener('input', () => field.setCustomValidity(''));
       field.addEventListener('change', () => field.setCustomValidity(''));
     });
+
+    const emailBtn = document.getElementById('copy-email-btn');
+    const emailAddress = '70brigantina@gmail.com';
+    let emailResetTimer = null;
+
+    const copyTextFallback = (text) => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.top = '-9999px';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      const ok = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return ok;
+    };
+
+    const showEmailCopied = () => {
+      if (!emailBtn) return;
+      emailBtn.textContent = 'Email скопирован';
+      window.clearTimeout(emailResetTimer);
+      emailResetTimer = window.setTimeout(() => {
+        emailBtn.textContent = 'Email';
+      }, 2000);
+    };
+
+    if (emailBtn) {
+      emailBtn.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+            await navigator.clipboard.writeText(emailAddress);
+            showEmailCopied();
+            return;
+          }
+        } catch (_) {
+          /* fallback below */
+        }
+
+        if (copyTextFallback(emailAddress)) {
+          showEmailCopied();
+        }
+      });
+    }
   </script>
 </body>
 </html>
