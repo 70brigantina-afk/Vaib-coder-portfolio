@@ -530,16 +530,29 @@ ul {
 
 .btn {
   position: relative;
-  min-height: 58px;
+  min-height: 54px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0 24px;
+  border: 1px solid transparent;
   border-radius: 999px;
   font-weight: 800;
+  font-size: 14px;
   letter-spacing: -0.02em;
+  text-decoration: none;
+  cursor: pointer;
   overflow: hidden;
-  transition: var(--transition);
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease, border-color 240ms ease, background 240ms ease, letter-spacing 240ms ease, color 240ms ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid rgba(240, 184, 93, 0.85);
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.985);
 }
 
 .btn::after {
@@ -572,6 +585,10 @@ ul {
   box-shadow: 0 26px 70px rgba(240, 184, 93, 0.36);
 }
 
+.btn-primary:active {
+  box-shadow: 0 12px 36px rgba(240, 184, 93, 0.24);
+}
+
 .btn-secondary {
   color: var(--text);
   border: 1px solid var(--line-strong);
@@ -583,6 +600,10 @@ ul {
   border-color: rgba(240, 184, 93, 0.52);
   background: rgba(240, 184, 93, 0.1);
   transform: translateY(-3px);
+}
+
+.btn-secondary:active {
+  background: rgba(240, 184, 93, 0.14);
 }
 
 .btn-full {
@@ -614,7 +635,7 @@ ul {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 34px;
+  margin-top: 18px;
 }
 
 .hero-pills span {
@@ -2314,9 +2335,11 @@ button.contact-link {
 }
 
 .contact-form span {
+  display: block;
+  margin-bottom: 8px;
   color: var(--muted);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .contact-form input,
@@ -3228,6 +3251,234 @@ button.contact-link {
   box-shadow: 0 20px 50px rgba(240, 184, 93, 0.28);
 }
 
+.trust-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.trust-chips li {
+  position: relative;
+  padding: 9px 14px 9px 30px;
+  border: 1px solid rgba(240, 184, 93, 0.22);
+  border-radius: 999px;
+  color: var(--cream);
+  background: rgba(240, 184, 93, 0.08);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.trust-chips li::before {
+  content: "✓";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-weight: 900;
+}
+
+.about-cta {
+  margin-top: 22px;
+}
+
+.section-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 22px;
+  margin-top: 42px;
+  padding: 22px 26px;
+  border: 1px solid rgba(240, 184, 93, 0.16);
+  border-radius: 24px;
+  background: rgba(255, 247, 229, 0.035);
+  text-align: center;
+}
+
+.section-cta p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.help-card,
+.trust-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border-radius: 28px;
+}
+
+.help-card h3,
+.trust-card h3 {
+  font-size: clamp(22px, 2.2vw, 26px);
+}
+
+.help-card p,
+.trust-card p {
+  margin-top: auto;
+}
+
+.case-cta {
+  align-items: center;
+  gap: 18px 28px;
+  margin: 0 0 10px;
+  padding: 20px 24px;
+  border-radius: 28px;
+}
+
+.case-cta-copy {
+  display: grid;
+  gap: 6px;
+  flex: 1 1 260px;
+}
+
+.case-cta-title {
+  font-size: clamp(20px, 2.4vw, 24px);
+}
+
+.case-cta .btn {
+  flex-shrink: 0;
+}
+
+.review-card {
+  gap: 14px;
+  min-height: 280px;
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(240, 184, 93, 0.28);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+}
+
+.review-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.review-meta {
+  display: grid;
+  gap: 4px;
+  justify-items: end;
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.review-stars-muted {
+  opacity: 0.35;
+}
+
+.review-date {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.review-avatar-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(240, 184, 93, 0.22), transparent 60%),
+    rgba(255, 247, 229, 0.06);
+}
+
+.story-actions {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+}
+
+.story-actions .btn {
+  justify-self: start;
+}
+
+.ai-panel .btn {
+  margin-top: 22px;
+}
+
+.final-cta-trust {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 26px;
+}
+
+.final-cta-trust li {
+  padding: 8px 14px;
+  border: 1px solid rgba(240, 184, 93, 0.2);
+  border-radius: 999px;
+  color: var(--cream);
+  background: rgba(240, 184, 93, 0.08);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.form-ease {
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-note {
+  margin-top: 12px;
+  color: var(--faint);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.form-success {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(240, 184, 93, 0.28);
+  border-radius: 16px;
+  color: var(--cream);
+  background: rgba(240, 184, 93, 0.1);
+  font-size: 13px;
+  text-align: center;
+}
+
+.form-success.is-visible {
+  animation: formSuccessIn 420ms ease;
+}
+
+@keyframes formSuccessIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-cta:focus-visible {
+  outline: 2px solid rgba(240, 184, 93, 0.9);
+  outline-offset: 3px;
+}
+
+.floating-cta:active {
+  transform: translateY(1px) scale(0.98);
+}
+
 @media (max-width: 1024px) {
   .help-grid,
   .trust-grid {
@@ -3272,7 +3523,20 @@ button.contact-link {
 
   .case-cta {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+  }
+
+  .case-cta .btn {
+    width: 100%;
+  }
+
+  .section-cta {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .section-cta .btn {
+    width: 100%;
   }
 
   .final-cta {
@@ -3283,14 +3547,71 @@ button.contact-link {
     font-size: clamp(28px, 8vw, 40px);
   }
 
+  .final-cta-trust {
+    gap: 8px;
+  }
+
   .floating-cta {
-    right: 14px;
-    bottom: 14px;
+    right: 12px;
+    bottom: 12px;
     padding: 12px 16px;
     font-size: 12px;
   }
 
   .contact-perks {
     grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .trust-chips {
+    gap: 8px;
+  }
+
+  .trust-chips li {
+    font-size: 11px;
+    padding: 8px 12px 8px 28px;
+  }
+
+  .story-actions .btn {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 430px) {
+  .help-card,
+  .trust-card,
+  .review-card {
+    padding: 22px 18px;
+  }
+
+  .case-cta {
+    padding: 18px;
+  }
+
+  .case-cta-title {
+    font-size: 20px;
+  }
+
+  .btn {
+    min-height: 52px;
+    padding: 0 18px;
+    font-size: 13px;
+  }
+
+  .stats-bar {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 32px;
   }
 }
