@@ -1656,13 +1656,6 @@ ul {
     linear-gradient(135deg, #241a16, #100d0b 55%, #a9705a);
 }
 
-.marina-site .case-image-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
 .device-mockup,
 .dashboard-mockup,
 .calc-mockup,
