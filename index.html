@@ -700,7 +700,7 @@
             <cite class="review-author">Ангелина Власова · стилист</cite>
           </article>
 
-          <article class="review-card reveal delay-1">
+          <article class="review-card review-card-expandable reveal delay-1" tabindex="0" aria-expanded="false">
             <div class="review-top">
               <img class="review-avatar review-avatar-marina" src="marina-dugina.png" alt="Марина Дугина">
               <div class="review-meta">
@@ -708,21 +708,14 @@
                 <time class="review-date" datetime="2026-08">Август 2026</time>
               </div>
             </div>
-            <p class="review-text">Ирина, ты сделала для меня сайт — и я до сих пор с теплом вспоминаю, как легко и спокойно мы работали. У меня были идеи, но не было времени и навыка, чтобы превратить их в работающий инструмент. Ты не просто сделала «красивую страницу» — ты продумала структуру, текст и визуал так, чтобы человеку было понятно: кто я, кому помогаю и как сделать первый шаг. Ты работала без суеты, по делу, без лишних вопросов и правок. Всё прозрачно: сроки, задачи, результат. И я чувствовала, что тебе не всё равно. Спасибо, Ирина. Ты — профессионал, с которым приятно и надёжно работать.</p>
-            <cite class="review-author">Марина Дугина · психолог</cite>
-          </article>
-
-          <article class="review-card review-card-placeholder reveal delay-2">
-            <div class="review-top">
-              <div class="review-avatar review-avatar-placeholder" aria-hidden="true">?</div>
-              <div class="review-meta">
-                <div class="review-stars review-stars-muted" aria-hidden="true">★★★★★</div>
-                <span class="review-date">Скоро</span>
-              </div>
+            <div class="review-body">
+              <p class="review-text">Ирина, ты сделала для меня сайт — и я до сих пор с теплом вспоминаю, как легко и спокойно мы работали. У меня были идеи, но не было времени и навыка, чтобы превратить их в работающий инструмент. Ты не просто сделала «красивую страницу» — ты продумала структуру, текст и визуал так, чтобы человеку было понятно: кто я, кому помогаю и как сделать первый шаг. Ты работала без суеты, по делу, без лишних вопросов и правок. Всё прозрачно: сроки, задачи, результат. И я чувствовала, что тебе не всё равно. Спасибо, Ирина. Ты — профессионал, с которым приятно и надёжно работать.</p>
             </div>
-            <p class="review-placeholder-mark">Место для отзыва</p>
-            <p class="review-text">Здесь будут опубликованы отзывы клиентов после завершения новых проектов.</p>
-            <cite class="review-author">Клиент · проект</cite>
+            <span class="review-expand-hint" aria-hidden="true">
+              <span class="review-expand-more">Развернуть</span>
+              <span class="review-expand-less">Свернуть</span>
+            </span>
+            <cite class="review-author">Марина Дугина · психолог</cite>
           </article>
         </div>
 
@@ -899,6 +892,24 @@
     } else if (typeCursor) {
       typeCursor.style.display = 'none';
     }
+
+    document.querySelectorAll('.review-card-expandable').forEach((card) => {
+      const setExpanded = (expanded) => {
+        card.classList.toggle('is-expanded', expanded);
+        card.setAttribute('aria-expanded', String(expanded));
+      };
+
+      card.addEventListener('click', () => {
+        setExpanded(!card.classList.contains('is-expanded'));
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          setExpanded(!card.classList.contains('is-expanded'));
+        }
+      });
+    });
 
     const toggle = document.querySelector('.nav-toggle');
     const menu = document.querySelector('.nav-menu');
